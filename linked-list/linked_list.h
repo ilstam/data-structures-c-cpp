@@ -46,7 +46,7 @@ ll_result list_destroy(LinkedList list);
  * Time complexity: O(1)
  *
  * \param list - The list that you wish to pop from.
- * \param element - The data to push.
+ * \param element - Pointer to the data to be pushed.
  * \retval - ll_result to indicate the status of the operation.
  */
 ll_result list_push_front(LinkedList list, void *element);
@@ -56,7 +56,7 @@ ll_result list_push_front(LinkedList list, void *element);
  * Time complexity: O(1)
  *
  * \param list - The list that you wish to pop from.
- * \param element - The data to push.
+ * \param element - Pointer to the data to be pushed.
  * \retval - ll_result to indicate the status of the operation.
  */
 ll_result list_push_back(LinkedList list, void *element);
