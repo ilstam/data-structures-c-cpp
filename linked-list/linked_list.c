@@ -123,20 +123,21 @@ ll_result list_pop_back(LinkedList list, void **element)
         return LIST_IS_EMPTY;
     }
 
-    /* get last but one node */
+    if (node->next == NULL) { // node is the only node
+        *element = node->element;
+        list->tail = list->head = NULL;
+        free(node);
+        return LIST_SUCCESS;
+    }
+
+    // there are more nodes; get last but one node
     for(; node->next != list->tail; node = node->next) {
     }
 
-    if (node->next != NULL) {
-        *element = node->next->element;
-    }
+    *element = node->next->element;
     free(node->next);
     list->tail = node;
     node->next = NULL;
-
-    if (list->tail == NULL) {
-        list->head = NULL;
-    }
 
     return LIST_SUCCESS;
 }
