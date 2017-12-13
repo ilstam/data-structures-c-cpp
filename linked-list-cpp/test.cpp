@@ -2,10 +2,16 @@
 
 #include "list.h"
 
+struct Test {
+    int x;
+    int y;
+};
+
 
 int main()
 {
-    LinkedList l1;
+    std::cout << "hi"  << std::endl;
+    LinkedList<int> l1;
 
     l1.push_front(4);
     l1.push_front(9);
@@ -14,9 +20,9 @@ int main()
     std::cout << "Print list 1" << std::endl;
     l1.print();
 
-    LinkedList l2(l1);
+    LinkedList<int> l2(l1);
 
-    LinkedList l3;
+    LinkedList<int> l3;
     l3 = l2;
 
     l2.push_back(3);
@@ -30,6 +36,17 @@ int main()
     l3.print();
     std::cout << "list 2 after pop_front:" << std::endl;
     l2.print();
+
+    Test t1 = {3, 5}, t2 = {5, 12};
+
+    LinkedList<Test> list_test;
+
+    list_test.push_front(t1);
+    list_test.push_back(t2);
+
+    Test back = list_test.pop_back();
+    std::cout << back.x << std::endl;
+    std::cout << back.y << std::endl;
 
     return 0;
 }

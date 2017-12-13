@@ -1,18 +1,15 @@
+#ifndef LIST_CPP
+#define LIST_CPP
+
 #include <iostream>
 
 #include "list.h"
 
+template <class T>
+LinkedList<T>::LinkedList(): head(nullptr), tail(nullptr), length(0) {}
 
-struct LinkedList::Node {
-    Node *next;
-    int element;
-
-    Node(int value): next(nullptr), element(value) {}
-};
-
-LinkedList::LinkedList(): head(nullptr), tail(nullptr), length(0) {}
-
-LinkedList::LinkedList(const LinkedList &that): head(nullptr), tail(nullptr), length(that.length)
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T> &that): head(nullptr), tail(nullptr), length(that.length)
 {
     if (that.length == 0) {
         return;
@@ -21,12 +18,14 @@ LinkedList::LinkedList(const LinkedList &that): head(nullptr), tail(nullptr), le
     copy(that);
 }
 
-LinkedList::~LinkedList()
+template <class T>
+LinkedList<T>::~LinkedList()
 {
     destroy();
 }
 
-LinkedList& LinkedList::operator=(const LinkedList &that)
+template <class T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList &that)
 {
     if (this != &that) {
         destroy();
@@ -36,14 +35,15 @@ LinkedList& LinkedList::operator=(const LinkedList &that)
     return *this;
 }
 
-void LinkedList::push_front(int element)
+template <class T>
+void LinkedList<T>::push_front(T element)
 {
-    Node *new_node = new Node(element);
+    Node<T> *new_node = new Node<T>(element);
 
     if (head == nullptr) {
         head = tail = new_node;
     } else {
-        Node *tmp = head;
+        Node<T> *tmp = head;
         head = new_node;
         new_node->next = tmp;
     }
@@ -51,9 +51,10 @@ void LinkedList::push_front(int element)
     length++;
 }
 
-void LinkedList::push_back(int element)
+template <class T>
+void LinkedList<T>::push_back(T element)
 {
-    Node *new_node = new Node(element);
+    Node<T> *new_node = new Node<T>(element);
 
     if (head == nullptr) {
         head = tail = new_node;
@@ -65,34 +66,36 @@ void LinkedList::push_back(int element)
     length++;
 }
 
-int LinkedList::pop_front()
+template <class T>
+T LinkedList<T>::pop_front()
 {
     if (is_empty()) {
         throw EmptyListException();
     }
 
-    Node *node = head;
+    Node<T> *node = head;
 
     if (tail == head) {
         tail = nullptr;
     }
     head = node->next;
 
-    int element = node->element;
+    T element = node->element;
     delete node;
     length--;
 
     return element;
 }
 
-int LinkedList::pop_back()
+template <class T>
+T LinkedList<T>::pop_back()
 {
     if (is_empty()) {
         throw EmptyListException();
     }
 
-    Node *node = head;
-    int element = node->element;
+    Node<T> *node = head;
+    T element = node->element;
 
     if (node->next == nullptr) {
         tail = head = NULL;
@@ -112,31 +115,35 @@ int LinkedList::pop_back()
     return element;
 }
 
-bool LinkedList::is_empty()
+template <class T>
+bool LinkedList<T>::is_empty()
 {
     return length == 0;
 }
 
-int LinkedList::get_size()
+template <class T>
+int LinkedList<T>::get_size()
 {
     return length;
 }
 
-void LinkedList::print()
+template <class T>
+void LinkedList<T>::print()
 {
-    for (Node *node = head; node != nullptr; node = node->next) {
+    for (Node<T> *node = head; node != nullptr; node = node->next) {
         std::cout << node->element << ", ";
     }
     std::cout << std::endl;
 }
 
-void LinkedList::copy(const LinkedList &that)
+template <class T>
+void LinkedList<T>::copy(const LinkedList &that)
 {
-    Node *node = new Node(that.head->element);
+    Node<T> *node = new Node<T>(that.head->element);
     head = tail = node;
 
-    for (Node *current = that.head->next; current != nullptr; current = current->next) {
-        node = new Node(current->element);
+    for (Node<T> *current = that.head->next; current != nullptr; current = current->next) {
+        node = new Node<T>(current->element);
         tail->next = node;
         tail = node;
     }
@@ -144,9 +151,10 @@ void LinkedList::copy(const LinkedList &that)
     length = that.length;
 }
 
-void LinkedList::destroy()
+template <class T>
+void LinkedList<T>::destroy()
 {
-    for (Node *tmp; head != nullptr; head = tmp) {
+    for (Node<T> *tmp; head != nullptr; head = tmp) {
         tmp = head->next;
         delete head;
     }
@@ -154,3 +162,5 @@ void LinkedList::destroy()
     head = tail = nullptr;
     length = 0;
 }
+
+#endif
