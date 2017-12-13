@@ -152,3 +152,25 @@ bool BinaryHeap::is_full()
 {
     return size == capacity;
 }
+
+BinaryHeap::BinaryHeap(int *arr, int len): size(len), capacity(len)
+{
+    array = arr;
+
+    // We only need to shift down the first half elements (in reverse order)
+    // in order to create a proper heap.
+    for (int i = (len-2)/2; i >= 0; i--) {
+        shift_down(i);
+    }
+}
+
+void BinaryHeap::heapsort(int *arr, int len)
+{
+    BinaryHeap heap(arr, len);
+    while (!heap.is_empty()) {
+        arr[--len] = heap.pop_max();
+    }
+
+    // We need this otherwise the destructor will try to free the array memory!
+    heap.array = nullptr;
+}

@@ -16,10 +16,17 @@ public:
     bool is_empty();
     bool is_full();
 
+    // This will sort array in-place!
+    static void heapsort(int *arr, int len);
+
 private:
     int size;
     int capacity;
     int *array;
+
+    // This is only used for heapsort and does NOT create a copy of the array.
+    // IE array elements of given array will be re-arranged accordingly.
+    BinaryHeap(int *arr, int len);
 
     int parent(int i);
     int left_child(int i);

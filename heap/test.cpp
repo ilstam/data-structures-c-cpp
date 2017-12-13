@@ -2,6 +2,13 @@
 
 #include "heap.h"
 
+void print_array(int *array, int len) {
+    for (int i = 0; i < len; i++) {
+        std::cout << array[i] << ", ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main()
 {
@@ -23,6 +30,17 @@ int main()
     } catch (EmptyHeapException &ex) {
         std::cout << "Catched empty heap exception!"  << std::endl;
     }
+
+    int array[] = {23, 89, 12, 4, 78, 24, 95, 60, 32, 4, 20, 56};
+    int array_len = sizeof(array) / sizeof(array)[0];
+
+    std::cout << "Array:" << std::endl;
+    print_array(array, array_len);
+
+    BinaryHeap::heapsort(array, array_len);
+
+    std::cout << "Array after heapsort:" << std::endl;
+    print_array(array, array_len);
 
     return 0;
 }
