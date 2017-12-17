@@ -80,6 +80,30 @@ BSTNode bst_insert(BSTNode root, int key)
     return new_node;
 }
 
+int bst_num_children(BSTNode node)
+{
+    if (node == NULL || (!node->left && !node->right)) {
+        return 0;
+    }
+    if (node->left && node->right) {
+        return 2;
+    }
+    return 1;
+}
+
+int bst_num_descendants(BSTNode node)
+{
+    if (bst_is_leaf(node)) {
+        return 0;
+    }
+
+    if (bst_num_children(node) == 2) {
+        return 2 + bst_num_descendants(node->left) + bst_num_descendants(node->right);
+    }
+
+    return 1 + bst_num_descendants(node->left) + bst_num_descendants(node->right);
+}
+
 bool bst_is_root(BSTNode node)
 {
     if (node && !node->parent) {
@@ -90,10 +114,7 @@ bool bst_is_root(BSTNode node)
 
 bool bst_is_leaf(BSTNode node)
 {
-    if (!node->left && !node->right) {
-        return true;
-    }
-    return false;
+    return bst_num_children(node) == 0;
 }
 
 void bst_print_in_order(BSTNode root)
@@ -127,4 +148,14 @@ void bst_print_post_order(BSTNode root)
     bst_print_post_order(root->left);
     bst_print_post_order(root->right);
     printf("%d\n", root->key);
+}
+
+void bst_destroy(BSTNode root) {
+    if (root == NULL) {
+        return;
+    }
+
+    bst_destroy(root->left);
+    bst_destroy(root->right);
+    free(root);
 }

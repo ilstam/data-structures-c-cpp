@@ -11,7 +11,8 @@ int main(void)
     bst_insert(left, 18);
     bst_insert(left, 31);
     bst_insert(right, 52);
-    BSTNode biggest = bst_insert(right, 60);
+    BSTNode almost_biggest = bst_insert(right, 60);
+    BSTNode biggest = bst_insert(root, 62);
 
     /*printf("hello!\n");*/
     /*printf("%d\n", bst_get_key(bst_find(root, 53)));*/
@@ -20,13 +21,15 @@ int main(void)
     /*printf("%d\n", bst_is_leaf(right));*/
     /*printf("%d\n", bst_is_leaf(biggest));*/
 
-    bst_print_in_order(root);
-    puts("--");
-    bst_print_pre_order(root);
-    puts("--");
-    bst_print_post_order(root);
+    /*bst_print_in_order(root);*/
+    /*puts("--");*/
+    /*bst_print_pre_order(root);*/
+    /*puts("--");*/
+    /*bst_print_post_order(root);*/
 
-    // destroy tree
+    printf("%d\n", bst_num_descendants(root));
+
+    bst_destroy(root);
 
     return 0;
 }

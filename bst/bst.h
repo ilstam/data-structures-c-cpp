@@ -16,12 +16,16 @@ int bst_get_key(BSTNode node);
 BSTNode bst_find(BSTNode root, int key);
 BSTNode bst_insert(BSTNode root, int key);
 
-
 bool bst_is_root(BSTNode node);
 bool bst_is_leaf(BSTNode node);
+
+int bst_num_children(BSTNode node);
+int bst_num_descendants(BSTNode node);
 
 void bst_print_in_order(BSTNode root);
 void bst_print_pre_order(BSTNode root);
 void bst_print_post_order(BSTNode root);
+
+void bst_destroy(BSTNode root);
 
 #endif
