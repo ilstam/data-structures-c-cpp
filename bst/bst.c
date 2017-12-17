@@ -20,12 +20,21 @@ static void *bst_malloc(size_t size)
     return ptr;
 }
 
-static BSTNode bst_create_node(BSTNode parent) {
+static BSTNode bst_create_node(BSTNode parent, int key) {
     BSTNode node = bst_malloc(sizeof(struct bst_node));
+    node->key = key;
     node->left = NULL;
     node->right = NULL;
     node->parent = parent;
     return node;
+}
+
+int bst_get_key(BSTNode node)
+{
+    if (node == NULL) {
+        return -1;
+    }
+    return node->key;
 }
 
 BSTNode bst_find(BSTNode root, int key)
@@ -58,7 +67,7 @@ BSTNode bst_find(BSTNode root, int key)
 BSTNode bst_insert(BSTNode root, int key)
 {
     BSTNode parent = bst_find(root, key);
-    BSTNode new_node = bst_create_node(parent);
+    BSTNode new_node = bst_create_node(parent, key);
 
     if (parent == NULL) {
        /* do nothing*/
@@ -85,4 +94,37 @@ bool bst_is_leaf(BSTNode node)
         return true;
     }
     return false;
+}
+
+void bst_print_in_order(BSTNode root)
+{
+    if (root == NULL) {
+        return;
+    }
+
+    bst_print_in_order(root->left);
+    printf("%d\n", root->key);
+    bst_print_in_order(root->right);
+}
+
+void bst_print_pre_order(BSTNode root)
+{
+    if (root == NULL) {
+        return;
+    }
+
+    printf("%d\n", root->key);
+    bst_print_pre_order(root->left);
+    bst_print_pre_order(root->right);
+}
+
+void bst_print_post_order(BSTNode root)
+{
+    if (root == NULL) {
+        return;
+    }
+
+    bst_print_post_order(root->left);
+    bst_print_post_order(root->right);
+    printf("%d\n", root->key);
 }
