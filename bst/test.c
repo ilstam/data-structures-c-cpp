@@ -28,9 +28,11 @@ int main(void)
     /*bst_print_post_order(root);*/
 
     /*printf("%d\n", bst_num_descendants(root));*/
-    printf("%d\n", bst_height(root));
-    printf("%d\n", bst_height(almost_biggest));
-    printf("%d\n", bst_height(biggest));
+    /*printf("%d\n", bst_height(root));*/
+    /*printf("%d\n", bst_height(almost_biggest));*/
+    /*printf("%d\n", bst_height(biggest));*/
+
+    printf("%d\n", bst_get_key(bst_get_next(root, 52)));
 
     bst_destroy(root);
 

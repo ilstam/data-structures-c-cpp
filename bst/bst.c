@@ -74,7 +74,7 @@ BSTNode bst_insert(BSTNode root, int key)
     BSTNode new_node = bst_create_node(parent, key);
 
     if (parent == NULL) {
-       /* do nothing*/
+       /* do nothing */
     } else if (key <= parent->key) {
         parent->left = new_node;
     } else {
@@ -82,6 +82,44 @@ BSTNode bst_insert(BSTNode root, int key)
     }
 
     return new_node;
+}
+
+static BSTNode leftmost_descendant(BSTNode node)
+{
+    if (node->left == NULL) {
+        return node;
+    }
+    return leftmost_descendant(node->left);
+}
+
+static BSTNode right_ancestor(BSTNode node)
+{
+    if (node->key < node->parent->key) {
+        return node->parent;
+    }
+
+    if (!node->parent) {
+        return NULL;
+    }
+
+    return right_ancestor(node->parent);
+}
+
+BSTNode bst_get_next(BSTNode root, int key)
+{
+    if (root == NULL) {
+        return NULL;
+    }
+
+    BSTNode node = bst_find(root, key);
+    if (node == NULL) {
+        return NULL;
+    }
+
+    if (node->right) {
+        return leftmost_descendant(node->right);
+    }
+    return right_ancestor(node);
 }
 
 int bst_num_children(BSTNode node)

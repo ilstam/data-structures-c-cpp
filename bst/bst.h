@@ -15,6 +15,7 @@ int bst_get_key(BSTNode node);
  */
 BSTNode bst_find(BSTNode root, int key);
 BSTNode bst_insert(BSTNode root, int key);
+BSTNode bst_get_next(BSTNode root, int key);
 
 bool bst_is_root(BSTNode node);
 bool bst_is_leaf(BSTNode node);
