@@ -19,6 +19,9 @@ BSTNode bst_insert(BSTNode root, int key);
 bool bst_is_root(BSTNode node);
 bool bst_is_leaf(BSTNode node);
 
+int bst_height(BSTNode node);
+int bst_depth(BSTNode node);
+
 int bst_num_children(BSTNode node);
 int bst_num_descendants(BSTNode node);
 

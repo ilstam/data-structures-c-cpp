@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "bst.h"
 
+
 struct bst_node {
     BSTNode parent;
     BSTNode left;
@@ -9,6 +10,9 @@ struct bst_node {
     int key;
 };
 
+static int max(int a, int b) {
+    return a > b ? a : b;
+}
 
 static void *bst_malloc(size_t size)
 {
@@ -115,6 +119,22 @@ bool bst_is_root(BSTNode node)
 bool bst_is_leaf(BSTNode node)
 {
     return bst_num_children(node) == 0;
+}
+
+int bst_height(BSTNode node)
+{
+    if (node == NULL || bst_is_leaf(node)) {
+        return 0;
+    }
+    return 1 + max(bst_height(node->left), bst_height(node->right));
+}
+
+int bst_depth(BSTNode node)
+{
+    if (node == NULL || bst_is_root(node))
+        return 0;
+
+    return 1 + bst_depth(node->parent);
 }
 
 void bst_print_in_order(BSTNode root)

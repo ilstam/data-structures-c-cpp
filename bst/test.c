@@ -27,7 +27,10 @@ int main(void)
     /*puts("--");*/
     /*bst_print_post_order(root);*/
 
-    printf("%d\n", bst_num_descendants(root));
+    /*printf("%d\n", bst_num_descendants(root));*/
+    printf("%d\n", bst_height(root));
+    printf("%d\n", bst_height(almost_biggest));
+    printf("%d\n", bst_height(biggest));
 
     bst_destroy(root);
 
