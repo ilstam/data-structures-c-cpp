@@ -21,7 +21,8 @@ int main(void)
     /*printf("%d\n", bst_is_leaf(right));*/
     /*printf("%d\n", bst_is_leaf(biggest));*/
 
-    /*bst_print_in_order(root);*/
+    bst_delete(root, 45);
+    bst_print_in_order(root);
     /*puts("--");*/
     /*bst_print_pre_order(root);*/
     /*puts("--");*/
@@ -32,7 +33,7 @@ int main(void)
     /*printf("%d\n", bst_height(almost_biggest));*/
     /*printf("%d\n", bst_height(biggest));*/
 
-    printf("%d\n", bst_get_key(bst_get_next(root, 52)));
+    /*printf("%d\n", bst_get_key(bst_get_next(root, 52)));*/
 
     bst_destroy(root);
 

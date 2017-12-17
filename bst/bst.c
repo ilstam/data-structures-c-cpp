@@ -122,6 +122,49 @@ BSTNode bst_get_next(BSTNode root, int key)
     return right_ancestor(node);
 }
 
+bool bst_delete(BSTNode root, int key)
+{
+    BSTNode node = bst_find(root, key);
+    if (node->key != key) {
+        return false;
+    }
+
+    if (bst_is_leaf(node)) {
+        if (node->parent) {
+            if (node->key <= node->parent->key) {
+                node->parent->left = NULL;
+            } else {
+                node->parent->right = NULL;
+            }
+        }
+        free(node);
+    } else if (!node->left) {
+        if (node->parent) {
+            if (node->key <= node->parent->key) {
+                node->parent->left = node->right;
+            } else {
+                node->parent->right = node->right;
+            }
+        }
+        free(node);
+    } else if (!node->right) {
+        if (node->parent) {
+            if (node->key <= node->parent->key) {
+                node->parent->left = node->left;
+            } else {
+                node->parent->right = node->left;
+            }
+        }
+        free(node);
+    } else {
+        int next_key = bst_get_next(root, key)->key;
+        bst_delete(node->right, next_key);
+        node->key = next_key;
+    }
+
+    return true;
+}
+
 int bst_num_children(BSTNode node)
 {
     if (node == NULL || (!node->left && !node->right)) {
@@ -208,7 +251,8 @@ void bst_print_post_order(BSTNode root)
     printf("%d\n", root->key);
 }
 
-void bst_destroy(BSTNode root) {
+void bst_destroy(BSTNode root)
+{
     if (root == NULL) {
         return;
     }
