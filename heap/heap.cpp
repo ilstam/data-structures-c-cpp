@@ -57,7 +57,7 @@ int BinaryHeap::right_child(int i)
     return i*2 + 2;
 }
 
-void BinaryHeap::shift_up(int i)
+void BinaryHeap::sift_up(int i)
 {
     while (i > 0 && array[i] > array[parent(i)]) {
         swap_elements(array[i], array[parent(i)]);
@@ -65,7 +65,7 @@ void BinaryHeap::shift_up(int i)
     }
 }
 
-void BinaryHeap::shift_down(int i)
+void BinaryHeap::sift_down(int i)
 {
     int max_val = i;
     int left = left_child(i);
@@ -80,7 +80,7 @@ void BinaryHeap::shift_down(int i)
 
     if (max_val != i) {
         swap_elements(array[i], array[max_val]);
-        shift_down(max_val);
+        sift_down(max_val);
     }
 }
 
@@ -100,7 +100,7 @@ int BinaryHeap::pop_max()
 
     swap_elements(array[0], array[size-1]);
     size--;
-    shift_down(0);
+    sift_down(0);
     return array[size];
 }
 
@@ -111,7 +111,7 @@ void BinaryHeap::insert(int elem)
     }
 
     array[size++] = elem;
-    shift_up(size-1);
+    sift_up(size-1);
 }
 
 int BinaryHeap::remove(int pos)
@@ -122,7 +122,7 @@ int BinaryHeap::remove(int pos)
 
     int retval = array[pos];
     array[pos] = std::numeric_limits<int>::max();
-    shift_up(pos);
+    sift_up(pos);
     pop_max();
     return retval;
 }
@@ -137,9 +137,9 @@ void BinaryHeap::change_priority(int pos, int priority)
     array[pos] = priority;
 
     if (priority > old_priority) {
-        shift_up(pos);
+        sift_up(pos);
     } else {
-        shift_down(pos);
+        sift_down(pos);
     }
 }
 
@@ -160,7 +160,7 @@ BinaryHeap::BinaryHeap(int *arr, int len): size(len), capacity(len)
     // We only need to shift down the first half elements (in reverse order)
     // in order to create a proper heap.
     for (int i = (len-2)/2; i >= 0; i--) {
-        shift_down(i);
+        sift_down(i);
     }
 }
 

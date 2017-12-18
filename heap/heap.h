@@ -32,8 +32,8 @@ private:
     int left_child(int i);
     int right_child(int i);
 
-    void shift_up(int i);
-    void shift_down(int i);
+    void sift_up(int i);
+    void sift_down(int i);
 };
 
 class EmptyHeapException: public std::exception
