@@ -21,7 +21,11 @@ int main(void)
     /*printf("%d\n", bst_is_leaf(right));*/
     /*printf("%d\n", bst_is_leaf(biggest));*/
 
-    bst_delete(root, 45);
+    root = bst_delete(root, 45);
+    if (!root) {
+        puts("tree is empty! bye...");
+        exit(-1);
+    }
     bst_print_in_order(root);
     /*puts("--");*/
     /*bst_print_pre_order(root);*/
@@ -34,6 +38,8 @@ int main(void)
     /*printf("%d\n", bst_height(biggest));*/
 
     /*printf("%d\n", bst_get_key(bst_get_next(root, 52)));*/
+
+    printf("------\nRoot changed: %d\n", bst_get_key(root));
 
     bst_destroy(root);
 

@@ -15,7 +15,8 @@ int bst_get_key(BSTNode node);
  */
 BSTNode bst_find(BSTNode root, int key);
 BSTNode bst_insert(BSTNode root, int key);
-bool bst_delete(BSTNode root, int key);
+/* Returns the root of the tree (root will change if we delete old root). */
+BSTNode bst_delete(BSTNode root, int key);
 BSTNode bst_get_next(BSTNode root, int key);
 
 bool bst_is_root(BSTNode node);

@@ -122,11 +122,11 @@ BSTNode bst_get_next(BSTNode root, int key)
     return right_ancestor(node);
 }
 
-bool bst_delete(BSTNode root, int key)
+BSTNode bst_delete(BSTNode root, int key)
 {
     BSTNode node = bst_find(root, key);
     if (node->key != key) {
-        return false;
+        return root;
     }
 
     if (bst_is_leaf(node)) {
@@ -136,6 +136,8 @@ bool bst_delete(BSTNode root, int key)
             } else {
                 node->parent->right = NULL;
             }
+        } else { // we are deleting root
+            root = NULL;
         }
         free(node);
     } else if (!node->left) {
@@ -145,6 +147,9 @@ bool bst_delete(BSTNode root, int key)
             } else {
                 node->parent->right = node->right;
             }
+        } else { // we are deleting root
+            root = node->right;
+            root->parent = NULL;
         }
         free(node);
     } else if (!node->right) {
@@ -154,6 +159,9 @@ bool bst_delete(BSTNode root, int key)
             } else {
                 node->parent->right = node->left;
             }
+        } else { // we are deleting root
+            root = node->left;
+            root->parent = NULL;
         }
         free(node);
     } else {
@@ -162,7 +170,7 @@ bool bst_delete(BSTNode root, int key)
         node->key = next_key;
     }
 
-    return true;
+    return root;
 }
 
 int bst_num_children(BSTNode node)
